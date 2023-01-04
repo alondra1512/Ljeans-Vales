@@ -1,0 +1,21 @@
+<div class="container">
+    <h3 mat-dialog-title>Desea imprimir?</h3>
+    <div mat-dialog-content>
+      Folio: {{data.id_vale}}
+      <p></p>
+      Nombre: {{data.nombre_distribuidor + " " + data.apellido_distribuidor}}
+      <p></p>
+      Tipo de vale: {{data.tipo_vale}}
+      <p></p>
+      Monto: {{data.monto_vale}}
+      <p></p>
+      Fecha limite: {{data.fecha_limite}}
+      <p></p>
+    </div>
+  
+    <div mat-dialog-actions>
+      <button mat-button [mat-dialog-close]="1" (click)="confirmPrint()">Imprimir</button>
+      <button mat-button (click)="onNoClick()" tabindex="-1">Cerrar</button>
+    </div>
+  </div>
+  

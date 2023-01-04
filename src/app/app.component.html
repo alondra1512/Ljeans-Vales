@@ -1,0 +1,91 @@
+<mat-toolbar color="warn">
+  <button mat-icon-button onclick="alert('Regresar a la app...')">
+    <mat-icon>keyboard_arrow_left</mat-icon> 
+  </button>
+
+  <span>LJEANS Vales</span>
+  
+  <span class="spacer"></span>
+  Recargar datos:
+  <button mat-icon-button (click)="refresh()">
+    <mat-icon>refresh</mat-icon>
+  </button>
+</mat-toolbar>
+
+<div class="container mat-elevation-z8">
+
+  <div class="form">
+    <mat-form-field floatPlaceholder="never" color="accent">
+      <input matInput #filter placeholder="Buscar...">
+    </mat-form-field>
+  </div>
+
+  <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Folio</mat-header-cell>
+      <mat-cell *matCellDef="let row" >{{row[0]}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="tipo">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Tipo de vale</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row[1]}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="nombre">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row[6] + " " + row[7]}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="monto">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Monto</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row[3]}} $</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="fecha_limite">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha límite</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row[4]}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="cantidad">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad de vales</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row[5]}}</mat-cell>
+    </ng-container>
+
+    <!-- actions -->
+    <ng-container matColumnDef="acciones">
+      <mat-header-cell *matHeaderCellDef>
+        <button mat-icon-button color="accent" (click)="addVale()">
+          <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+        </button>
+      </mat-header-cell>
+
+      <mat-cell *matCellDef="let row; let i=index;">
+        <button mat-icon-button color="accent" (click)="editVale(i, row[0], row[1], row[6], row[7], row[2], row[3], row[4], row[5])">
+          <mat-icon aria-label="Edit">edit</mat-icon>
+        </button>
+        <button mat-icon-button color="accent" (click)="deleteVale(i, row[0], row[1], row[6], row[7], row[2], row[3], row[4], row[5])">
+          <mat-icon aria-label="Delete">delete</mat-icon>
+        </button>
+        <button mat-icon-button color="accent" (click)="printVale(i, row[0], row[1], row[6], row[7], row[2], row[3], row[4], row[5])">
+          <mat-icon aria-label="print">print</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+
+  <div class="no-results" [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+    Sin resultados
+  </div>
+
+  <mat-paginator #paginator
+                 [length]="dataSource.filteredData.length"
+                 [pageIndex]="0"
+                 [pageSize]="5"
+                 [pageSizeOptions]="[5, 10, 25, 50]">
+  </mat-paginator>
+</div>

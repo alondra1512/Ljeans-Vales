@@ -1,0 +1,60 @@
+<div class="container">
+  <h3 mat-dialog-title>Agregar nuevo registro</h3>
+
+  <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput #input class="form-control" placeholder="Folio" [(ngModel)]="data.id_vale" name="id" [disabled]="true">
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <mat-label>Tipo de vale</mat-label>
+        <select matNativeControl #input class="form-control" [(ngModel)]="data.tipo_vale" name="tipo" required>
+          <option value="E">Vale electrónico</option>
+          <option value="L">LCard</option>
+          <option value="P">Vale impreso</option>
+        </select>
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <!--Contains mat-hint for characters count and has maxLengt set-->
+    <div class="form">
+      <mat-form-field color="accent">
+        <!--input matInput #inputstate class="form-control" placeholder="Distribuidor" [(ngModel)]="data.nombre_distribuidor" name="nombre" required -->
+        <mat-label>Distribuidor</mat-label>
+      
+        <select matNativeControl #input class="form-control" [(ngModel)]="data.id_ditribuidor" name="nombre" required>
+          <option value="1">Pito Perez</option>
+        </select>
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput type="number" placeholder="Monto" [(ngModel)]="data.monto_vale" name="monto">
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput type="date" placeholder="Fecha límite" [(ngModel)]="data.fecha_limite" name="fecha_limite" required>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput type="number" placeholder="Cantidad de vales" [(ngModel)]="data.cantidad" name="cantidad" required>
+      </mat-form-field>
+    </div>
+
+    <div mat-dialog-actions>
+      <button mat-button [type]="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="confirmAdd()">Guardar</button>
+      <button mat-button (click)="onNoClick()" tabindex="-1">Cancelar</button>
+    </div>
+  </form>
+</div>
